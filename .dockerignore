@@ -1,4 +1,8 @@
+# Ignora carpetas de cache generadas por Python.
 __pycache__/
+# Ignora archivos compilados de Python.
 *.pyc
+# Ignora el repositorio Git dentro del contexto de Docker.
 .git/
+# Ignora entornos virtuales locales.
 .venv/

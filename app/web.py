@@ -1,98 +1,196 @@
+# Importa Flask para crear la aplicacion web.
 from flask import Flask, send_from_directory
+
+# Importa render_template para mostrar archivos HTML con datos dinamicos.
 from flask import render_template
 
-from diagrams import generate_transition_diagram
-from large_numbers_solution import write_large_numbers_results
-from markov_solution import markov_probabilities_dict, write_markov_results
-from utils import OUTPUTS_DIR, ensure_outputs_dir, format_probability
+# Importa la funcion que genera el diagrama de transiciones en PNG.
+from diagrams import generar_diagrama_de_transicion
+
+# Importa la funcion que ejecuta y guarda la simulacion.
+from large_numbers_solution import escribir_resultados_ley_grandes_numeros
+
+# Importa funciones de Markov para calcular resultados teoricos.
+from markov_solution import diccionario_de_probabilidades_markov, escribir_resultados_markov
+
+# Importa utilidades generales de rutas y formato.
+from utils import CARPETA_DE_SALIDAS, asegurar_carpeta_de_salidas, formatear_probabilidad
 
 
-app = Flask(__name__)
+# Crea la aplicacion Flask usando este archivo como referencia.
+aplicacion = Flask(__name__)
+
+# Mantiene el nombre comun app para que Flask y herramientas externas lo reconozcan.
+app = aplicacion
 
 
-def prepare_project_outputs() -> dict:
-    ensure_outputs_dir()
-    markov_result = write_markov_results(OUTPUTS_DIR / "markov_results.txt")
-    simulation_result = write_large_numbers_results(
-        OUTPUTS_DIR / "large_numbers_results.txt",
-        repetitions=1_000_000,
+# Define una funcion que prepara todos los datos necesarios para la web.
+def preparar_salidas_del_proyecto() -> dict:
+    # Garantiza que exista la carpeta outputs.
+    asegurar_carpeta_de_salidas()
+    # Calcula Markov y escribe markov_results.txt.
+    resultado_markov = escribir_resultados_markov(CARPETA_DE_SALIDAS / "markov_results.txt")
+    # Ejecuta la simulacion y escribe large_numbers_results.txt.
+    resultado_simulacion = escribir_resultados_ley_grandes_numeros(
+        # Ruta donde se guardara el reporte de simulacion.
+        CARPETA_DE_SALIDAS / "large_numbers_results.txt",
+        # Cantidad minima pedida por el examen.
+        repeticiones=1_000_000,
     )
-    generate_transition_diagram(markov_result.transition_matrix, OUTPUTS_DIR / "transition_diagram.png")
+    # Genera el diagrama PNG usando la matriz de Markov.
+    generar_diagrama_de_transicion(resultado_markov.matriz_de_transicion, CARPETA_DE_SALIDAS / "transition_diagram.png")
 
-    theoretical = markov_probabilities_dict(markov_result)
+    # Obtiene las probabilidades teoricas en formato de diccionario.
+    teoricas = diccionario_de_probabilidades_markov(resultado_markov)
+    # Devuelve un diccionario con todo lo que usaran las plantillas HTML.
     return {
-        "markov": markov_result,
-        "simulation": simulation_result,
-        "theoretical": theoretical,
+        # Guarda el resultado completo de Markov.
+        "markov": resultado_markov,
+        # Guarda el resultado completo de simulacion.
+        "simulation": resultado_simulacion,
+        # Guarda las probabilidades teoricas.
+        "theoretical": teoricas,
+        # Guarda filas listas para la tabla visual.
         "rows": [
+            # Fila de ganar sin cambiar.
             {
+                # Nombre de la estrategia.
                 "strategy": "No cambiar",
+                # Evento mostrado.
                 "event": "Ganar",
-                "theoretical": format_probability(theoretical["Ganar manteniendo"]),
-                "experimental": format_probability(simulation_result.keep_win_probability),
+                # Probabilidad teorica formateada.
+                "theoretical": formatear_probabilidad(teoricas["Ganar manteniendo"]),
+                # Probabilidad experimental formateada.
+                "experimental": formatear_probabilidad(resultado_simulacion.probabilidad_ganar_manteniendo),
             },
+            # Fila de perder sin cambiar.
             {
+                # Nombre de la estrategia.
                 "strategy": "No cambiar",
+                # Evento mostrado.
                 "event": "Perder",
-                "theoretical": format_probability(theoretical["Perder manteniendo"]),
-                "experimental": format_probability(simulation_result.keep_loss_probability),
+                # Probabilidad teorica formateada.
+                "theoretical": formatear_probabilidad(teoricas["Perder manteniendo"]),
+                # Probabilidad experimental formateada.
+                "experimental": formatear_probabilidad(resultado_simulacion.probabilidad_perder_manteniendo),
             },
+            # Fila de ganar cambiando.
             {
+                # Nombre de la estrategia.
                 "strategy": "Cambiar",
+                # Evento mostrado.
                 "event": "Ganar",
-                "theoretical": format_probability(theoretical["Ganar cambiando"]),
-                "experimental": format_probability(simulation_result.switch_win_probability),
+                # Probabilidad teorica formateada.
+                "theoretical": formatear_probabilidad(teoricas["Ganar cambiando"]),
+                # Probabilidad experimental formateada.
+                "experimental": formatear_probabilidad(resultado_simulacion.probabilidad_ganar_cambiando),
             },
+            # Fila de perder cambiando.
             {
+                # Nombre de la estrategia.
                 "strategy": "Cambiar",
+                # Evento mostrado.
                 "event": "Perder",
-                "theoretical": format_probability(theoretical["Perder cambiando"]),
-                "experimental": format_probability(simulation_result.switch_loss_probability),
+                # Probabilidad teorica formateada.
+                "theoretical": formatear_probabilidad(teoricas["Perder cambiando"]),
+                # Probabilidad experimental formateada.
+                "experimental": formatear_probabilidad(resultado_simulacion.probabilidad_perder_cambiando),
             },
         ],
     }
 
 
-PROJECT_DATA = prepare_project_outputs()
+# Mantiene el nombre anterior como alias compatible.
+prepare_project_outputs = preparar_salidas_del_proyecto
+
+# Prepara los datos una sola vez al arrancar el servidor.
+DATOS_DEL_PROYECTO = preparar_salidas_del_proyecto()
+
+# Mantiene el nombre anterior como alias compatible con plantillas ya escritas.
+PROJECT_DATA = DATOS_DEL_PROYECTO
 
 
-@app.route("/")
-def index():
-    return render_template("index.html", data=PROJECT_DATA)
+# Define la ruta principal de la pagina web.
+@aplicacion.route("/")
+def pagina_inicio():
+    # Renderiza la pagina principal y le envia los datos calculados.
+    return render_template("index.html", data=DATOS_DEL_PROYECTO)
 
 
-@app.route("/markov")
-def markov_page():
+# Mantiene el nombre anterior como alias compatible.
+index = pagina_inicio
+
+
+# Define la ruta visual de resultados Markov.
+@aplicacion.route("/markov")
+def pagina_markov():
+    # Renderiza la pagina Markov con datos y reporte textual.
     return render_template(
+        # Plantilla HTML de Markov.
         "markov.html",
-        data=PROJECT_DATA,
-        report=(OUTPUTS_DIR / "markov_results.txt").read_text(encoding="utf-8"),
+        # Datos principales del proyecto.
+        data=DATOS_DEL_PROYECTO,
+        # Contenido completo del archivo .txt para mostrarlo bonito.
+        report=(CARPETA_DE_SALIDAS / "markov_results.txt").read_text(encoding="utf-8"),
     )
 
 
-@app.route("/simulacion")
-def simulation_page():
+# Mantiene el nombre anterior como alias compatible.
+markov_page = pagina_markov
+
+
+# Define la ruta visual de la simulacion.
+@aplicacion.route("/simulacion")
+def pagina_simulacion():
+    # Renderiza la pagina de simulacion con datos y reporte textual.
     return render_template(
+        # Plantilla HTML de simulacion.
         "simulation.html",
-        data=PROJECT_DATA,
-        report=(OUTPUTS_DIR / "large_numbers_results.txt").read_text(encoding="utf-8"),
+        # Datos principales del proyecto.
+        data=DATOS_DEL_PROYECTO,
+        # Contenido completo del archivo .txt para mostrarlo bonito.
+        report=(CARPETA_DE_SALIDAS / "large_numbers_results.txt").read_text(encoding="utf-8"),
     )
 
 
-@app.route("/diagrama")
-def diagram_page():
-    return render_template("diagram.html", data=PROJECT_DATA)
+# Mantiene el nombre anterior como alias compatible.
+simulation_page = pagina_simulacion
 
 
-@app.route("/outputs/<path:filename>")
-def outputs(filename):
-    return send_from_directory(OUTPUTS_DIR, filename)
+# Define la ruta visual del diagrama.
+@aplicacion.route("/diagrama")
+def pagina_diagrama():
+    # Renderiza la pagina que muestra el PNG dentro de una interfaz bonita.
+    return render_template("diagram.html", data=DATOS_DEL_PROYECTO)
 
 
-@app.route("/download/<path:filename>")
-def download(filename):
-    return send_from_directory(OUTPUTS_DIR, filename, as_attachment=True)
+# Mantiene el nombre anterior como alias compatible.
+diagram_page = pagina_diagrama
 
 
+# Define una ruta para abrir archivos generados en el navegador.
+@aplicacion.route("/outputs/<path:nombre_archivo>")
+def ver_archivo_generado(nombre_archivo):
+    # Sirve el archivo desde la carpeta outputs.
+    return send_from_directory(CARPETA_DE_SALIDAS, nombre_archivo)
+
+
+# Mantiene el nombre anterior como alias compatible.
+outputs = ver_archivo_generado
+
+
+# Define una ruta para descargar archivos generados.
+@aplicacion.route("/download/<path:nombre_archivo>")
+def descargar_archivo_generado(nombre_archivo):
+    # Sirve el archivo como adjunto para que el navegador lo descargue.
+    return send_from_directory(CARPETA_DE_SALIDAS, nombre_archivo, as_attachment=True)
+
+
+# Mantiene el nombre anterior como alias compatible.
+download = descargar_archivo_generado
+
+
+# Ejecuta el servidor solo si este archivo se corre directamente.
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8000)
+    # Levanta Flask escuchando en todas las interfaces del contenedor y en el puerto 8000.
+    aplicacion.run(host="0.0.0.0", port=8000)

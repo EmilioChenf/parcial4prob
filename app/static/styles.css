@@ -1,20 +1,33 @@
+/* Variables generales de color, sombra y tema visual del sitio. */
 :root {
+  /* Indica al navegador que el diseno esta pensado para modo claro. */
   color-scheme: light;
+  /* Color principal del texto. */
   --ink: #111827;
+  /* Color secundario para parrafos y textos suaves. */
   --muted: #5b6472;
+  /* Color de bordes y divisiones. */
   --line: #d7dde8;
+  /* Color de fondo general. */
   --paper: #f7f9fc;
+  /* Color de paneles y tablas. */
   --panel: #ffffff;
+  /* Azul principal para botones. */
   --blue: #1d4ed8;
+  /* Verde usado para resaltar la estrategia ganadora. */
   --green: #15803d;
+  /* Cafe/ambar usado en etiquetas pequenas. */
   --amber: #b45309;
+  /* Sombra general para dar profundidad a tarjetas. */
   --shadow: 0 18px 50px rgba(17, 24, 39, 0.12);
 }
 
+/* Hace que padding y borde no rompan el ancho de los elementos. */
 * {
   box-sizing: border-box;
 }
 
+/* Configuracion base de toda la pagina. */
 body {
   margin: 0;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -23,6 +36,7 @@ body {
   overflow-x: hidden;
 }
 
+/* Encabezado principal con imagen de fondo y texto grande. */
 .hero {
   min-height: 520px;
   padding: 28px clamp(18px, 4vw, 64px) 72px;
@@ -34,6 +48,7 @@ body {
   background-position: center;
 }
 
+/* Limita el ancho de barra, hero y contenido para que se vea profesional. */
 .topbar,
 .hero-grid,
 main {
@@ -41,6 +56,7 @@ main {
   margin: 0 auto;
 }
 
+/* Distribuye la barra superior en dos extremos. */
 .topbar {
   display: flex;
   justify-content: space-between;
@@ -48,11 +64,13 @@ main {
   gap: 16px;
 }
 
+/* Estilo del nombre del proyecto. */
 .brand {
   font-size: 1.15rem;
   font-weight: 800;
 }
 
+/* Estilo del enlace de marca en paginas internas. */
 .brand-link {
   color: inherit;
   font-size: 1.15rem;
@@ -60,6 +78,7 @@ main {
   text-decoration: none;
 }
 
+/* Insignia pequena para indicar el metodo o seccion. */
 .badge {
   border: 1px solid rgba(255, 255, 255, 0.38);
   padding: 8px 12px;
@@ -67,6 +86,7 @@ main {
   background: rgba(255, 255, 255, 0.12);
 }
 
+/* Organiza el texto principal y las tarjetas 10/90. */
 .hero-grid {
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
@@ -75,6 +95,7 @@ main {
   padding-top: 120px;
 }
 
+/* Titulo grande del hero. */
 .hero-copy h1 {
   max-width: 780px;
   margin: 0;
@@ -82,6 +103,7 @@ main {
   line-height: 0.95;
 }
 
+/* Parrafo principal debajo del titulo. */
 .lead {
   max-width: 680px;
   margin: 24px 0 0;
@@ -90,6 +112,7 @@ main {
   color: rgba(255, 255, 255, 0.86);
 }
 
+/* Etiqueta pequena superior de cada seccion. */
 .eyebrow {
   margin: 0 0 10px;
   color: var(--amber);
@@ -98,16 +121,19 @@ main {
   text-transform: uppercase;
 }
 
+/* Cambia el color de la etiqueta cuando esta sobre el hero oscuro. */
 .hero .eyebrow {
   color: #fbbf24;
 }
 
+/* Contenedor de las tarjetas con probabilidades destacadas. */
 .scoreboard {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
 }
 
+/* Estilo de cada tarjeta del marcador. */
 .scoreboard div {
   min-height: 150px;
   padding: 22px;
@@ -116,32 +142,38 @@ main {
   backdrop-filter: blur(12px);
 }
 
+/* Resalta la tarjeta de cambiar porque es la mejor estrategia. */
 .scoreboard .highlight {
   background: rgba(21, 128, 61, 0.82);
 }
 
+/* Hace que textos pequenos de las tarjetas sean bloques. */
 .scoreboard span,
 .scoreboard small {
   display: block;
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* Numero grande dentro de las tarjetas. */
 .scoreboard strong {
   display: block;
   margin: 8px 0 4px;
   font-size: clamp(2.5rem, 7vw, 4.5rem);
 }
 
+/* Espaciado principal del contenido. */
 main {
   padding: 42px clamp(18px, 3vw, 34px) 70px;
 }
 
+/* Seccion comun con separacion superior. */
 .section {
   margin-top: 28px;
   padding: clamp(22px, 4vw, 38px) 0;
   border-top: 1px solid var(--line);
 }
 
+/* Encabezado de seccion con titulo y acciones. */
 .section-heading {
   display: flex;
   justify-content: space-between;
@@ -150,16 +182,19 @@ main {
   margin-bottom: 18px;
 }
 
+/* Titulos secundarios. */
 h2 {
   margin: 0;
   font-size: clamp(1.65rem, 3vw, 2.5rem);
 }
 
+/* Parrafos generales. */
 p {
   line-height: 1.7;
   color: var(--muted);
 }
 
+/* Caja que permite desplazar tablas en pantallas pequenas. */
 .table-wrap {
   overflow-x: auto;
   background: var(--panel);
@@ -167,12 +202,14 @@ p {
   box-shadow: var(--shadow);
 }
 
+/* Estilo base de tablas. */
 table {
   width: 100%;
   min-width: 720px;
   border-collapse: collapse;
 }
 
+/* Celdas de tablas. */
 th,
 td {
   padding: 16px 18px;
@@ -180,6 +217,7 @@ td {
   border-bottom: 1px solid var(--line);
 }
 
+/* Encabezados de tablas. */
 th {
   color: #334155;
   background: #edf2f7;
@@ -187,10 +225,12 @@ th {
   text-transform: uppercase;
 }
 
+/* Quita borde inferior en la ultima fila. */
 tr:last-child td {
   border-bottom: 0;
 }
 
+/* Distribucion de dos columnas para texto y grafico. */
 .split {
   display: grid;
   grid-template-columns: minmax(280px, 0.85fr) minmax(320px, 1.15fr);
@@ -198,12 +238,14 @@ tr:last-child td {
   align-items: center;
 }
 
+/* Lista limpia de puntos teoricos. */
 .clean-list {
   padding-left: 18px;
   color: var(--muted);
   line-height: 1.8;
 }
 
+/* Contenedor de botones. */
 .actions {
   display: flex;
   flex-wrap: wrap;
@@ -211,6 +253,7 @@ tr:last-child td {
   margin-top: 20px;
 }
 
+/* Estilo principal de botones/enlaces. */
 .actions a {
   display: inline-flex;
   align-items: center;
@@ -224,22 +267,26 @@ tr:last-child td {
   transition: transform 160ms ease, background 160ms ease, box-shadow 160ms ease;
 }
 
+/* Estado hover para botones principales. */
 .actions a:hover {
   background: #1e40af;
   box-shadow: 0 12px 24px rgba(29, 78, 216, 0.25);
   transform: translateY(-1px);
 }
 
+/* Variante secundaria de boton. */
 .actions a.secondary {
   color: var(--ink);
   background: #e8eef7;
 }
 
+/* Hover de la variante secundaria. */
 .actions a.secondary:hover {
   background: #dbe5f2;
   box-shadow: 0 12px 24px rgba(15, 23, 42, 0.08);
 }
 
+/* Marco visual para el diagrama. */
 .diagram {
   margin: 0;
   background: var(--panel);
@@ -247,18 +294,21 @@ tr:last-child td {
   box-shadow: var(--shadow);
 }
 
+/* Imagen del diagrama adaptable al ancho disponible. */
 .diagram img {
   display: block;
   width: 100%;
   height: auto;
 }
 
+/* Cuadricula de metricas de simulacion. */
 .metrics {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 14px;
 }
 
+/* Tarjeta individual de metrica. */
 .metrics article {
   min-height: 118px;
   padding: 20px;
@@ -266,18 +316,21 @@ tr:last-child td {
   border: 1px solid var(--line);
 }
 
+/* Texto pequeno dentro de metricas. */
 .metrics span {
   display: block;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
+/* Numero grande dentro de metricas. */
 .metrics strong {
   display: block;
   margin-top: 10px;
   font-size: clamp(1.35rem, 2.5vw, 2rem);
 }
 
+/* Bloque final de conclusion. */
 .conclusion {
   margin-top: 36px;
   padding: clamp(24px, 4vw, 42px);
@@ -285,11 +338,13 @@ tr:last-child td {
   background: #14532d;
 }
 
+/* Parrafo dentro de conclusion. */
 .conclusion p {
   max-width: 880px;
   color: rgba(255, 255, 255, 0.88);
 }
 
+/* Encabezado interno de las paginas Markov, simulacion y diagrama. */
 .subhero {
   min-height: 410px;
   padding: 28px clamp(18px, 4vw, 64px) 64px;
@@ -298,30 +353,35 @@ tr:last-child td {
   background-position: center;
 }
 
+/* Imagen y capa oscura para la pagina de Markov. */
 .markov-hero {
   background:
     linear-gradient(rgba(8, 20, 42, 0.78), rgba(8, 20, 42, 0.62)),
     url("https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=1800&q=80");
 }
 
+/* Imagen y capa oscura para la pagina de simulacion. */
 .simulation-hero {
   background:
     linear-gradient(rgba(20, 33, 61, 0.78), rgba(20, 33, 61, 0.58)),
     url("https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1800&q=80");
 }
 
+/* Imagen y capa oscura para la pagina del diagrama. */
 .diagram-hero {
   background:
     linear-gradient(rgba(17, 24, 39, 0.76), rgba(17, 24, 39, 0.56)),
     url("https://images.unsplash.com/photo-1558494949-ef010cbdcc31?auto=format&fit=crop&w=1800&q=80");
 }
 
+/* Contenedor del texto en paginas internas. */
 .subhero-content {
   width: min(960px, 100%);
   margin: 0 auto;
   padding-top: 86px;
 }
 
+/* Titulo grande en paginas internas. */
 .subhero-content h1 {
   max-width: 900px;
   margin: 0;
@@ -329,12 +389,14 @@ tr:last-child td {
   line-height: 1;
 }
 
+/* Parrafo descriptivo en paginas internas. */
 .subhero-content p:not(.eyebrow) {
   max-width: 720px;
   color: rgba(255, 255, 255, 0.86);
   font-size: clamp(1rem, 2vw, 1.22rem);
 }
 
+/* Cuadricula de tarjetas destacadas en paginas internas. */
 .detail-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -342,10 +404,12 @@ tr:last-child td {
   margin-top: -46px;
 }
 
+/* Variante de cuatro columnas para la pagina de simulacion. */
 .detail-grid.four {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+/* Tarjeta de resultado individual. */
 .result-panel {
   min-height: 170px;
   padding: 24px;
@@ -354,33 +418,39 @@ tr:last-child td {
   box-shadow: var(--shadow);
 }
 
+/* Tarjeta verde para destacar resultado favorable. */
 .result-panel.good {
   color: white;
   background: #166534;
   border-color: #166534;
 }
 
+/* Etiqueta de tarjeta de resultado. */
 .result-panel span {
   display: block;
   color: var(--muted);
   font-size: 0.95rem;
 }
 
+/* Texto suave cuando la tarjeta es verde. */
 .result-panel.good span,
 .result-panel.good p {
   color: rgba(255, 255, 255, 0.82);
 }
 
+/* Numero grande de tarjeta de resultado. */
 .result-panel strong {
   display: block;
   margin-top: 8px;
   font-size: clamp(2.1rem, 5vw, 3.6rem);
 }
 
+/* Ajusta el parrafo final de tarjeta. */
 .result-panel p {
   margin-bottom: 0;
 }
 
+/* Contenedor de matriz con desplazamiento horizontal. */
 .matrix-card {
   max-width: 100%;
   overflow-x: auto;
@@ -389,22 +459,26 @@ tr:last-child td {
   box-shadow: var(--shadow);
 }
 
+/* Tabla especial de la matriz de transicion. */
 .matrix-table {
   min-width: 760px;
   font-size: 0.92rem;
 }
 
+/* Celdas compactas para la matriz. */
 .matrix-table th,
 .matrix-table td {
   padding: 12px 14px;
   white-space: nowrap;
 }
 
+/* Centra las probabilidades de la matriz. */
 .matrix-table td:not(:first-child),
 .matrix-table th:not(:first-child) {
   text-align: center;
 }
 
+/* Caja oscura para mostrar reportes .txt dentro de la interfaz. */
 .pretty-report {
   max-height: 620px;
   margin: 0;
@@ -418,16 +492,20 @@ tr:last-child td {
   white-space: pre-wrap;
 }
 
+/* Acciones compactas alineadas a la derecha en encabezados. */
 .compact-actions {
   margin-top: 0;
   justify-content: flex-end;
 }
 
+/* Da aire extra al diagrama grande. */
 .big-diagram {
   padding: clamp(12px, 2vw, 22px);
 }
 
+/* Reglas responsivas para tablet y movil. */
 @media (max-width: 820px) {
+  /* Convierte layouts complejos en una sola columna. */
   .hero-grid,
   .split,
   .section-heading,
@@ -437,26 +515,32 @@ tr:last-child td {
     display: grid;
   }
 
+  /* Reduce espacio superior del hero en pantallas pequenas. */
   .hero-grid {
     padding-top: 82px;
   }
 
+  /* Deja tarjetas en dos columnas cuando hay espacio medio. */
   .scoreboard,
   .metrics {
     grid-template-columns: 1fr 1fr;
   }
 
+  /* Alinea botones a la izquierda en movil. */
   .compact-actions {
     justify-content: flex-start;
   }
 }
 
+/* Reglas responsivas para celulares pequenos. */
 @media (max-width: 520px) {
+  /* Coloca tarjetas en una sola columna. */
   .scoreboard,
   .metrics {
     grid-template-columns: 1fr;
   }
 
+  /* Aumenta alto del hero para que el contenido respire. */
   .hero {
     min-height: 620px;
   }

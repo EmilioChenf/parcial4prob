@@ -1,5 +1,12 @@
+# Libreria para dibujar el diagrama de transiciones y exportarlo como PNG.
 matplotlib==3.9.2
+# Libreria para modelar la cadena de Markov como grafo dirigido.
 networkx==3.3
+# Libreria numerica para crear y validar la matriz de transicion.
 numpy==2.1.1
+# Libreria para mostrar tablas y paneles bonitos en consola.
 rich==13.8.1
+# Libreria para crear la interfaz web en localhost.
 Flask==3.0.3
+# Servidor WSGI para ejecutar Flask en Docker sin el warning del servidor de desarrollo.
+waitress==3.0.0

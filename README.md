@@ -138,7 +138,7 @@ Desde la carpeta del proyecto:
 docker compose up --build
 ```
 
-Docker instalara las dependencias, ejecutara la interfaz web y dejara los resultados en la carpeta `outputs/`.
+Docker instalara las dependencias, ejecutara la interfaz web con Waitress y dejara los resultados en la carpeta `outputs/`.
 
 Despues abre el navegador en:
 
@@ -155,6 +155,8 @@ La pagina muestra:
 - Enlaces directos a los archivos generados.
 
 Para detener el servidor usa `Ctrl + C` en la terminal.
+
+Si aparece `Gracefully Stopping`, significa que Docker esta apagando el contenedor porque se presiono `Ctrl + C` o se ejecuto `docker compose stop`. No es un error del programa.
 
 ## Ejecutar solo en consola con Docker
 

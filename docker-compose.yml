@@ -1,8 +1,16 @@
+# Define los servicios que Docker Compose va a levantar.
 services:
+  # Servicio principal del proyecto de Chispudito.
   chispudito:
+    # Construye la imagen usando el Dockerfile de la carpeta actual.
     build: .
+    # Asigna un nombre fijo al contenedor para reconocerlo facilmente.
     container_name: chispudito_markov_lgn
+    # Publica puertos entre la computadora y el contenedor.
     ports:
+      # Conecta localhost:8000 de la computadora con el puerto 8000 del contenedor.
       - "8000:8000"
+    # Monta carpetas compartidas entre la computadora y el contenedor.
     volumes:
+      # Guarda los archivos generados en la carpeta outputs del proyecto.
       - ./outputs:/proyecto/outputs

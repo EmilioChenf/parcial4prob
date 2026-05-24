@@ -1,18 +1,27 @@
 <!doctype html>
+<!-- Documento principal de la interfaz web del proyecto. -->
 <html lang="es">
   <head>
+    <!-- Usa caracteres UTF-8 para mostrar texto en espanol correctamente. -->
     <meta charset="utf-8">
+    <!-- Hace que la pagina se adapte a celulares y pantallas pequenas. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Titulo que aparece en la pestana del navegador. -->
     <title>Problema 0 - Chispudito</title>
+    <!-- Carga la hoja de estilos del proyecto desde la carpeta static. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
+    <!-- Hero principal: presenta la conclusion mas importante del problema. -->
     <header class="hero">
+      <!-- Barra superior con nombre del proyecto y metodos usados. -->
       <nav class="topbar">
         <span class="brand">Chispudito</span>
         <span class="badge">Markov + LGN</span>
       </nav>
+      <!-- Contenedor del texto principal y las probabilidades destacadas. -->
       <section class="hero-grid">
+        <!-- Bloque de texto principal. -->
         <div class="hero-copy">
           <p class="eyebrow">Problema 0 del examen</p>
           <h1>Conviene cambiar de puerta.</h1>
@@ -21,6 +30,7 @@
             1 de 10. Cambiar gana cuando la primera eleccion fue incorrecta: 9 de 10.
           </p>
         </div>
+        <!-- Tarjetas con las probabilidades principales. -->
         <div class="scoreboard" aria-label="Probabilidades principales">
           <div>
             <span>No cambiar</span>
@@ -37,6 +47,7 @@
     </header>
 
     <main>
+      <!-- Seccion de tabla comparativa entre teoria y experimento. -->
       <section class="section">
         <div class="section-heading">
           <p class="eyebrow">Resumen</p>
@@ -53,6 +64,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- Recorre las filas calculadas en Python para llenar la tabla. -->
               {% for row in data.rows %}
               <tr>
                 <td>{{ row.strategy }}</td>
@@ -66,6 +78,7 @@
         </div>
       </section>
 
+      <!-- Seccion explicativa del metodo de cadenas de Markov. -->
       <section class="section split">
         <div>
           <p class="eyebrow">Cadena de Markov</p>
@@ -80,21 +93,25 @@
             <li>P(eleccion incorrecta) = 9/10 = 0.90</li>
             <li>Los estados finales son absorbentes.</li>
           </ul>
+          <!-- Botones que llevan a paginas bonitas, no al texto crudo. -->
           <div class="actions">
             <a href="/markov">Ver resultados Markov</a>
             <a href="/diagrama">Abrir diagrama PNG</a>
           </div>
         </div>
+        <!-- Vista previa del diagrama generado automaticamente. -->
         <figure class="diagram">
           <img src="/outputs/transition_diagram.png" alt="Diagrama de transiciones de la cadena de Markov">
         </figure>
       </section>
 
+      <!-- Seccion de resultados de la Ley de los Grandes Numeros. -->
       <section class="section">
         <div class="section-heading">
           <p class="eyebrow">Ley de los Grandes Numeros</p>
           <h2>Simulacion de {{ "{:,}".format(data.simulation.repetitions) }} repeticiones</h2>
         </div>
+        <!-- Tarjetas con conteos experimentales. -->
         <div class="metrics">
           <article>
             <span>Victorias manteniendo</span>
@@ -113,11 +130,13 @@
             <strong>{{ "{:,}".format(data.simulation.switch_losses) }}</strong>
           </article>
         </div>
+        <!-- Boton hacia la pagina visual de simulacion. -->
         <div class="actions">
           <a href="/simulacion">Ver resultados de simulacion</a>
         </div>
       </section>
 
+      <!-- Seccion final con la conclusion del problema. -->
       <section class="conclusion">
         <h2>Conclusion</h2>
         <p>

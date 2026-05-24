@@ -1,12 +1,18 @@
 <!doctype html>
+<!-- Pagina visual para explicar la simulacion por Ley de los Grandes Numeros. -->
 <html lang="es">
   <head>
+    <!-- Configura codificacion UTF-8. -->
     <meta charset="utf-8">
+    <!-- Permite que la pagina se adapte a diferentes pantallas. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Titulo de la pestana. -->
     <title>Simulacion LGN - Chispudito</title>
+    <!-- Carga la hoja de estilos. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
+    <!-- Encabezado de la pagina de simulacion. -->
     <header class="subhero simulation-hero">
       <nav class="topbar">
         <a class="brand-link" href="/">Chispudito</a>
@@ -23,6 +29,7 @@
     </header>
 
     <main>
+      <!-- Tarjetas con los conteos principales de la simulacion. -->
       <section class="detail-grid four">
         <article class="result-panel">
           <span>Victorias manteniendo</span>
@@ -46,6 +53,7 @@
         </article>
       </section>
 
+      <!-- Tabla comparativa entre probabilidades teoricas y experimentales. -->
       <section class="section">
         <div class="section-heading">
           <div>
@@ -68,6 +76,7 @@
               </tr>
             </thead>
             <tbody>
+              <!-- Recorre las filas calculadas en Python para llenar la tabla. -->
               {% for row in data.rows %}
               <tr>
                 <td>{{ row.strategy }}</td>
@@ -81,6 +90,7 @@
         </div>
       </section>
 
+      <!-- Reporte textual completo, presentado dentro de una caja visual. -->
       <section class="section">
         <div class="section-heading">
           <p class="eyebrow">Reporte completo</p>

@@ -1,12 +1,18 @@
 <!doctype html>
+<!-- Pagina visual para explicar la solucion por cadenas de Markov. -->
 <html lang="es">
   <head>
+    <!-- Configura codificacion UTF-8. -->
     <meta charset="utf-8">
+    <!-- Permite que la pagina sea responsive. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Titulo de la pestana. -->
     <title>Resultados Markov - Chispudito</title>
+    <!-- Carga estilos generales del proyecto. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
+    <!-- Encabezado de la pagina Markov. -->
     <header class="subhero markov-hero">
       <nav class="topbar">
         <a class="brand-link" href="/">Chispudito</a>
@@ -23,6 +29,7 @@
     </header>
 
     <main>
+      <!-- Tarjetas principales con los resultados teoricos. -->
       <section class="detail-grid">
         <article class="result-panel">
           <span>No cambiar</span>
@@ -41,6 +48,7 @@
         </article>
       </section>
 
+      <!-- Seccion con matriz de transicion y acciones de descarga. -->
       <section class="section split">
         <div>
           <p class="eyebrow">Matriz de transicion</p>
@@ -55,21 +63,26 @@
             <a class="secondary" href="/diagrama">Ver diagrama</a>
           </div>
         </div>
+        <!-- Tabla visual construida a partir de la matriz calculada en Python. -->
         <div class="matrix-card">
           <table class="matrix-table">
             <thead>
               <tr>
                 <th>Estado</th>
+                <!-- Crea una columna por cada estado de la cadena. -->
                 {% for state in data.markov.states %}
                 <th>S{{ loop.index0 }}</th>
                 {% endfor %}
               </tr>
             </thead>
             <tbody>
+              <!-- Recorre cada estado para escribir una fila de la matriz. -->
               {% for state in data.markov.states %}
+              <!-- Guarda el indice de la fila actual para leer la matriz. -->
               {% set row_index = loop.index0 %}
               <tr>
                 <td>S{{ row_index }} {{ state }}</td>
+                <!-- Recorre las probabilidades de la fila actual. -->
                 {% for value in data.markov.transition_matrix[row_index] %}
                 <td>{{ "%.2f"|format(value) }}</td>
                 {% endfor %}
@@ -80,6 +93,7 @@
         </div>
       </section>
 
+      <!-- Reporte textual completo, mostrado dentro de la interfaz. -->
       <section class="section">
         <div class="section-heading">
           <p class="eyebrow">Reporte completo</p>

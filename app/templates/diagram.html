@@ -1,12 +1,18 @@
 <!doctype html>
+<!-- Pagina visual para mostrar el diagrama de transiciones. -->
 <html lang="es">
   <head>
+    <!-- Configura codificacion UTF-8. -->
     <meta charset="utf-8">
+    <!-- Permite que la pagina sea responsive. -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Titulo de la pestana. -->
     <title>Diagrama de transiciones - Chispudito</title>
+    <!-- Carga la hoja de estilos. -->
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
   </head>
   <body>
+    <!-- Encabezado de la pagina del diagrama. -->
     <header class="subhero diagram-hero">
       <nav class="topbar">
         <a class="brand-link" href="/">Chispudito</a>
@@ -23,6 +29,7 @@
     </header>
 
     <main>
+      <!-- Seccion principal que contiene el PNG y botones de accion. -->
       <section class="section">
         <div class="section-heading">
           <div>
@@ -35,6 +42,7 @@
             <a class="secondary" href="/markov">Ver Markov</a>
           </div>
         </div>
+        <!-- Imagen generada automaticamente con networkx y matplotlib. -->
         <figure class="diagram big-diagram">
           <img src="/outputs/transition_diagram.png" alt="Diagrama de transiciones de la cadena de Markov">
         </figure>
