@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Problema 0 - Chispudito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="hero">
+      <nav class="topbar">
+        <span class="brand">Chispudito</span>
+        <span class="badge">Markov + LGN</span>
+      </nav>
+      <section class="hero-grid">
+        <div class="hero-copy">
+          <p class="eyebrow">Problema 0 del examen</p>
+          <h1>Conviene cambiar de puerta.</h1>
+          <p class="lead">
+            Con 10 puertas, mantener gana solo cuando la primera eleccion fue correcta:
+            1 de 10. Cambiar gana cuando la primera eleccion fue incorrecta: 9 de 10.
+          </p>
+        </div>
+        <div class="scoreboard" aria-label="Probabilidades principales">
+          <div>
+            <span>No cambiar</span>
+            <strong>10%</strong>
+            <small>probabilidad de ganar</small>
+          </div>
+          <div class="highlight">
+            <span>Cambiar</span>
+            <strong>90%</strong>
+            <small>probabilidad de ganar</small>
+          </div>
+        </div>
+      </section>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Resumen</p>
+          <h2>Resultados teoricos y experimentales</h2>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Estrategia</th>
+                <th>Evento</th>
+                <th>Teorico</th>
+                <th>Experimental</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in data.rows %}
+              <tr>
+                <td>{{ row.strategy }}</td>
+                <td>{{ row.event }}</td>
+                <td>{{ row.theoretical }}</td>
+                <td>{{ row.experimental }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section split">
+        <div>
+          <p class="eyebrow">Cadena de Markov</p>
+          <h2>Estados y transiciones</h2>
+          <p>
+            El espacio de estados es finito: inicio, eleccion correcta,
+            eleccion incorrecta y resultados absorbentes de ganar o perder.
+            Cada fila de la matriz de transicion suma 1.
+          </p>
+          <ul class="clean-list">
+            <li>P(eleccion correcta) = 1/10 = 0.10</li>
+            <li>P(eleccion incorrecta) = 9/10 = 0.90</li>
+            <li>Los estados finales son absorbentes.</li>
+          </ul>
+          <div class="actions">
+            <a href="/markov">Ver resultados Markov</a>
+            <a href="/diagrama">Abrir diagrama PNG</a>
+          </div>
+        </div>
+        <figure class="diagram">
+          <img src="/outputs/transition_diagram.png" alt="Diagrama de transiciones de la cadena de Markov">
+        </figure>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Ley de los Grandes Numeros</p>
+          <h2>Simulacion de {{ "{:,}".format(data.simulation.repetitions) }} repeticiones</h2>
+        </div>
+        <div class="metrics">
+          <article>
+            <span>Victorias manteniendo</span>
+            <strong>{{ "{:,}".format(data.simulation.keep_wins) }}</strong>
+          </article>
+          <article>
+            <span>Derrotas manteniendo</span>
+            <strong>{{ "{:,}".format(data.simulation.keep_losses) }}</strong>
+          </article>
+          <article>
+            <span>Victorias cambiando</span>
+            <strong>{{ "{:,}".format(data.simulation.switch_wins) }}</strong>
+          </article>
+          <article>
+            <span>Derrotas cambiando</span>
+            <strong>{{ "{:,}".format(data.simulation.switch_losses) }}</strong>
+          </article>
+        </div>
+        <div class="actions">
+          <a href="/simulacion">Ver resultados de simulacion</a>
+        </div>
+      </section>
+
+      <section class="conclusion">
+        <h2>Conclusion</h2>
+        <p>
+          Cambiar es la estrategia ganadora: sube la probabilidad de ganar de
+          10% a 90%. La cadena de Markov organiza el proceso y la simulacion
+          confirma la convergencia experimental hacia esos valores.
+        </p>
+      </section>
+    </main>
+  </body>
+</html>

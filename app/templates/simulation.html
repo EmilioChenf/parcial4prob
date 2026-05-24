@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Simulacion LGN - Chispudito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="subhero simulation-hero">
+      <nav class="topbar">
+        <a class="brand-link" href="/">Chispudito</a>
+        <span class="badge">Ley de los Grandes Numeros</span>
+      </nav>
+      <section class="subhero-content">
+        <p class="eyebrow">Simulacion experimental</p>
+        <h1>Un millon de repeticiones acercan el resultado al valor teorico.</h1>
+        <p>
+          Cada repeticion elige puerta ganadora y puerta inicial al azar. Las
+          frecuencias relativas convergen hacia 10% y 90%.
+        </p>
+      </section>
+    </header>
+
+    <main>
+      <section class="detail-grid four">
+        <article class="result-panel">
+          <span>Victorias manteniendo</span>
+          <strong>{{ "{:,}".format(data.simulation.keep_wins) }}</strong>
+          <p>{{ "%.2f"|format(data.simulation.keep_win_probability * 100) }}% experimental.</p>
+        </article>
+        <article class="result-panel">
+          <span>Derrotas manteniendo</span>
+          <strong>{{ "{:,}".format(data.simulation.keep_losses) }}</strong>
+          <p>{{ "%.2f"|format(data.simulation.keep_loss_probability * 100) }}% experimental.</p>
+        </article>
+        <article class="result-panel good">
+          <span>Victorias cambiando</span>
+          <strong>{{ "{:,}".format(data.simulation.switch_wins) }}</strong>
+          <p>{{ "%.2f"|format(data.simulation.switch_win_probability * 100) }}% experimental.</p>
+        </article>
+        <article class="result-panel">
+          <span>Derrotas cambiando</span>
+          <strong>{{ "{:,}".format(data.simulation.switch_losses) }}</strong>
+          <p>{{ "%.2f"|format(data.simulation.switch_loss_probability * 100) }}% experimental.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Comparacion</p>
+            <h2>Teoria contra experimento</h2>
+          </div>
+          <div class="actions compact-actions">
+            <a href="/">Volver al inicio</a>
+            <a href="/download/large_numbers_results.txt">Descargar TXT</a>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Estrategia</th>
+                <th>Evento</th>
+                <th>Teorico</th>
+                <th>Experimental</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for row in data.rows %}
+              <tr>
+                <td>{{ row.strategy }}</td>
+                <td>{{ row.event }}</td>
+                <td>{{ row.theoretical }}</td>
+                <td>{{ row.experimental }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Reporte completo</p>
+          <h2>Contenido del archivo generado</h2>
+        </div>
+        <pre class="pretty-report">{{ report }}</pre>
+      </section>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Resultados Markov - Chispudito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="subhero markov-hero">
+      <nav class="topbar">
+        <a class="brand-link" href="/">Chispudito</a>
+        <span class="badge">Cadena de Markov</span>
+      </nav>
+      <section class="subhero-content">
+        <p class="eyebrow">Solucion teorica</p>
+        <h1>La matriz confirma el 10% contra 90%.</h1>
+        <p>
+          La primera eleccion divide el proceso en dos estados: correcta con
+          probabilidad 1/10 e incorrecta con probabilidad 9/10.
+        </p>
+      </section>
+    </header>
+
+    <main>
+      <section class="detail-grid">
+        <article class="result-panel">
+          <span>No cambiar</span>
+          <strong>10%</strong>
+          <p>Gana solo si la primera puerta tenia el premio.</p>
+        </article>
+        <article class="result-panel good">
+          <span>Cambiar</span>
+          <strong>90%</strong>
+          <p>Gana si la primera puerta estaba vacia.</p>
+        </article>
+        <article class="result-panel">
+          <span>Estados</span>
+          <strong>{{ data.markov.states|length }}</strong>
+          <p>Inicio, eleccion correcta/incorrecta y finales absorbentes.</p>
+        </article>
+      </section>
+
+      <section class="section split">
+        <div>
+          <p class="eyebrow">Matriz de transicion</p>
+          <h2>Filas validas: cada una suma 1</h2>
+          <p>
+            Esta vista presenta el resultado como entrega visual, pero tambien
+            conserva el archivo de texto original para descargarlo.
+          </p>
+          <div class="actions">
+            <a href="/">Volver al inicio</a>
+            <a href="/download/markov_results.txt">Descargar TXT</a>
+            <a class="secondary" href="/diagrama">Ver diagrama</a>
+          </div>
+        </div>
+        <div class="matrix-card">
+          <table class="matrix-table">
+            <thead>
+              <tr>
+                <th>Estado</th>
+                {% for state in data.markov.states %}
+                <th>S{{ loop.index0 }}</th>
+                {% endfor %}
+              </tr>
+            </thead>
+            <tbody>
+              {% for state in data.markov.states %}
+              {% set row_index = loop.index0 %}
+              <tr>
+                <td>S{{ row_index }} {{ state }}</td>
+                {% for value in data.markov.transition_matrix[row_index] %}
+                <td>{{ "%.2f"|format(value) }}</td>
+                {% endfor %}
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <div class="section-heading">
+          <p class="eyebrow">Reporte completo</p>
+          <h2>Contenido del archivo generado</h2>
+        </div>
+        <pre class="pretty-report">{{ report }}</pre>
+      </section>
+    </main>
+  </body>
+</html>

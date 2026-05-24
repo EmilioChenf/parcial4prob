@@ -1,0 +1,28 @@
+
+========================================================================
+SOLUCION POR LEY DE LOS GRANDES NUMEROS
+========================================================================
+Elementos del metodo:
+- Repeticiones independientes: 1,000,000
+- Semilla reproducible: 20260524
+- En cada repeticion se elige una puerta ganadora y una puerta inicial al azar.
+- El promedio experimental se compara contra la probabilidad teorica.
+
+Resultados experimentales:
+- Victorias manteniendo: 100,330
+- Derrotas manteniendo: 899,670
+- Probabilidad experimental de ganar manteniendo: 0.100330 (10.03%)
+- Probabilidad experimental de perder manteniendo: 0.899670 (89.97%)
+- Victorias cambiando: 899,670
+- Derrotas cambiando: 100,330
+- Probabilidad experimental de ganar cambiando: 0.899670 (89.97%)
+- Probabilidad experimental de perder cambiando: 0.100330 (10.03%)
+
+Comparacion contra valores teoricos:
+- Ganar manteniendo: experimental 0.100330 vs teorico 0.100000
+- Perder manteniendo: experimental 0.899670 vs teorico 0.900000
+- Ganar cambiando: experimental 0.899670 vs teorico 0.900000
+- Perder cambiando: experimental 0.100330 vs teorico 0.100000
+
+Justificacion:
+Al aumentar el numero de repeticiones, las frecuencias relativas se acercan a las probabilidades teoricas.

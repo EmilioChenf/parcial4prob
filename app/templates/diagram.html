@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Diagrama de transiciones - Chispudito</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+  </head>
+  <body>
+    <header class="subhero diagram-hero">
+      <nav class="topbar">
+        <a class="brand-link" href="/">Chispudito</a>
+        <span class="badge">Diagrama PNG</span>
+      </nav>
+      <section class="subhero-content">
+        <p class="eyebrow">Transiciones</p>
+        <h1>El proceso se ve mejor como una cadena con estados absorbentes.</h1>
+        <p>
+          Las flechas muestran la probabilidad de pasar desde el inicio hacia
+          una eleccion correcta o incorrecta y luego hacia los resultados.
+        </p>
+      </section>
+    </header>
+
+    <main>
+      <section class="section">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">Vista del diagrama</p>
+            <h2>Cadena de Markov del Problema 0</h2>
+          </div>
+          <div class="actions compact-actions">
+            <a href="/">Volver al inicio</a>
+            <a href="/download/transition_diagram.png">Descargar PNG</a>
+            <a class="secondary" href="/markov">Ver Markov</a>
+          </div>
+        </div>
+        <figure class="diagram big-diagram">
+          <img src="/outputs/transition_diagram.png" alt="Diagrama de transiciones de la cadena de Markov">
+        </figure>
+      </section>
+    </main>
+  </body>
+</html>

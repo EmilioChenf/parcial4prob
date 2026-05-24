@@ -1,0 +1,46 @@
+
+========================================================================
+SOLUCION POR CADENAS DE MARKOV
+========================================================================
+Elementos de la cadena:
+- Proceso: seleccion inicial, apertura de 8 puertas vacias y decision final.
+- Espacio de estados finito: Inicio, eleccion correcta/incorrecta y estados absorbentes de ganar/perder.
+- Probabilidades de transicion: P(correcta)=1/10 y P(incorrecta)=9/10.
+- Estados absorbentes: una vez que gana o pierde, el proceso termina.
+
+Interpretacion de estados:
+- Inicio: antes de revisar si la primera puerta tiene premio.
+- Eleccion correcta: la primera puerta elegida si tiene premio.
+- Eleccion incorrecta: la primera puerta elegida no tiene premio.
+- Gana/Pierde manteniendo: resultado si nunca cambia.
+- Gana/Pierde cambiando: resultado si siempre cambia.
+
+Matriz de transicion P (cada fila suma 1):
+
+Estado origen            |    S0   |    S1   |    S2   |    S3   |    S4   |    S5   |    S6  
+----------------------------------------------------------------------------------------------
+S0 Inicio                |   0.00  |   0.10  |   0.90  |   0.00  |   0.00  |   0.00  |   0.00 
+S1 Eleccion correcta     |   0.00  |   0.00  |   0.00  |   0.50  |   0.00  |   0.00  |   0.50 
+S2 Eleccion incorrecta   |   0.00  |   0.00  |   0.00  |   0.00  |   0.50  |   0.50  |   0.00 
+S3 Gana manteniendo      |   0.00  |   0.00  |   0.00  |   1.00  |   0.00  |   0.00  |   0.00 
+S4 Pierde manteniendo    |   0.00  |   0.00  |   0.00  |   0.00  |   1.00  |   0.00  |   0.00 
+S5 Gana cambiando        |   0.00  |   0.00  |   0.00  |   0.00  |   0.00  |   1.00  |   0.00 
+S6 Pierde cambiando      |   0.00  |   0.00  |   0.00  |   0.00  |   0.00  |   0.00  |   1.00 
+
+S0: Inicio
+S1: Eleccion correcta
+S2: Eleccion incorrecta
+S3: Gana manteniendo
+S4: Pierde manteniendo
+S5: Gana cambiando
+S6: Pierde cambiando
+
+Probabilidades teoricas por estrategia:
+- Si NO cambia, P(ganar) = 0.100000 (10.00%)
+- Si NO cambia, P(perder) = 0.900000 (90.00%)
+- Si SI cambia, P(ganar) = 0.900000 (90.00%)
+- Si SI cambia, P(perder) = 0.100000 (10.00%)
+
+Justificacion:
+Mantener gana solo cuando la primera eleccion fue correcta: 1 de 10 puertas.
+Cambiar gana cuando la primera eleccion fue incorrecta: 9 de 10 puertas.

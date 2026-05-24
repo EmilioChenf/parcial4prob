@@ -1,0 +1,8 @@
+services:
+  chispudito:
+    build: .
+    container_name: chispudito_markov_lgn
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./outputs:/proyecto/outputs
